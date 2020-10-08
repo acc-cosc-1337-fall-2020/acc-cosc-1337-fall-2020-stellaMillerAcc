@@ -11,4 +11,3 @@ TEST_CASE("Should produce factorials for integers") {
 	REQUIRE(factorial(4) == 24);
 	REQUIRE(factorial(5) == 120);
 }
-
