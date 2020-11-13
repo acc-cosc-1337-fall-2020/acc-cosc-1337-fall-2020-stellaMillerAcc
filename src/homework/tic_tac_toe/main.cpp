@@ -1,4 +1,5 @@
 #include"tic_tac_toe.h"
+#include "tic_tac_toe_manager.h"
 #include<iostream>
 #include<sstream>
 
@@ -11,14 +12,12 @@ int main()
 {
 	string firstPlayer;
 	TicTacToe game;
-	string positionString;
-	int position;
+	TicTacToeManager manager;
 	char doAnother;
 	bool invalid = false;
 
 	do {
 		cout<<"---Welcome to Tic Tac Toe!---\n";
-		cout<<"---Press Q at any time to quit---\n";
 
 		do {
 			cout<<"Enter first player (X or O): ";
@@ -38,26 +37,21 @@ int main()
 		game.start_game(firstPlayer);
 
 		while (!game.game_over()) {
-			game.display_board();
-			cout<<"Enter board positon: ";
-			cin>>positionString;
-			if (positionString == "Q")
-				break;
-
-			stringstream ss(positionString);
-			ss >> position;
-			game.mark_board(position);
+			cin>>game;
+			cout<<game;
 		}
 
 		cout<<" \n";
 		cout<<"Game Over! Final Board: \n";
-		game.display_board();
+		cout<<game;
 		cout<<"The winner was: "<<game.get_winner();
 		cout<<"\n";
+		manager.save_game(game);
 
 		cout<<"Play Again? (enter y to continue, or any other character to exit.) \n";
 		cin>>doAnother;
 	} while(doAnother == 'y');
 
+	cout<<manager;
 	return 0;
 }

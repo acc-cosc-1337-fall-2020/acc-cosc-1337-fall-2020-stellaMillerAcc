@@ -9,6 +9,7 @@ using std::vector;
 using std::find;
 using std::fill;
 using std::cout;
+using std::stringstream;
 
 bool TicTacToe::game_over() {
 
@@ -42,18 +43,6 @@ void TicTacToe::mark_board(int position) {
 
 string TicTacToe::get_player() const {
     return player;
-}
-
-void TicTacToe::display_board() const {
-    cout<<"\n";
-    cout<<" ------------ \n";
-    cout<<"| "<<pegs[0]<<" | "<<pegs[1]<<" | "<<pegs[2]<<" |\n";
-    cout<<" ------------ \n";
-    cout<<"| "<<pegs[3]<<" | "<<pegs[4]<<" | "<<pegs[5]<<" |\n";
-    cout<<" ------------ \n";
-    cout<<"| "<<pegs[6]<<" | "<<pegs[7]<<" | "<<pegs[8]<<" |\n";
-    cout<<" ------------ \n";
-    cout<<"\n";
 }
 
 void TicTacToe::set_next_player() {
@@ -118,4 +107,26 @@ void TicTacToe::set_winner() {
 
 string TicTacToe::get_winner() const {
     return winner;
+}
+
+std::ostream& operator<<(std::ostream& out, const TicTacToe& game)
+{
+    cout<<" -------- \n";
+    for(std::size_t i=0; i < game.pegs.size(); i += 3)
+    {
+        cout<<game.pegs[i]<<" | "<<game.pegs[i+1]<<" | "<<game.pegs[i+2]<<"\n";
+        cout<<" -------- \n";
+    }
+
+    return out;
+}
+
+std::istream& operator>>(std::istream& in, TicTacToe& game)
+{
+    int position;
+    std::cout<<"Enter position: ";
+    in>>position;
+    game.mark_board(position);
+
+    return in;
 }
