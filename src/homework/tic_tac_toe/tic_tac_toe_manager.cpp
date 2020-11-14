@@ -1,10 +1,11 @@
 //cpp
 #include "tic_tac_toe_manager.h"
+#include<memory>
 
-void TicTacToeManager::save_game(TicTacToe game)
+void TicTacToeManager::save_game(std::unique_ptr<TicTacToe>& game)
 {
-    games.push_back(game);
-    update_winner_account(game.get_winner());
+    update_winner_account(game->get_winner());
+    games.push_back(std::move(game));
 }
 
 void TicTacToeManager::update_winner_account(std::string winner)
